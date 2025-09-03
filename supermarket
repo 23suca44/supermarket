@@ -1,0 +1,67 @@
+# Supermarket Inventory
+products = {
+    "apple": 0.5,
+    "banana": 0.3,
+    "bread": 1.2,
+    "milk": 0.9,
+    "eggs": 2.0
+}
+
+# Cart to store user's selections
+cart = {}
+
+def show_products():
+    print("\nAvailable Products:")
+    for item, price in products.items():
+        print(f"- {item.title()} : ${price:.2f}")
+
+def add_to_cart():
+    item = input("Enter item name to add: ").lower()
+    if item in products:
+        quantity = int(input(f"Enter quantity of {item}: "))
+        if item in cart:
+            cart[item] += quantity
+        else:
+            cart[item] = quantity
+        print(f"{quantity} {item}(s) added to cart.")
+    else:
+        print("Item not found.")
+
+def view_cart():
+    if not cart:
+        print("\nYour cart is empty.")
+        return
+    print("\nYour Cart:")
+    total = 0
+    for item, qty in cart.items():
+        price = products[item]
+        subtotal = price * qty
+        total += subtotal
+        print(f"- {item.title()} x{qty} = ${subtotal:.2f}")
+    print(f"Total: ${total:.2f}")
+
+def checkout():
+    view_cart()
+    print("\nThank you for shopping with us!")
+    exit()
+
+# Menu
+while True:
+    print("\n--- Supermarket Menu ---")
+    print("1. Show Products")
+    print("2. Add to Cart")
+    print("3. View Cart")
+    print("4. Checkout")
+    
+    choice = input("Select an option (1-4): ")
+    
+    if choice == "1":
+        show_products()
+    elif choice == "2":
+        add_to_cart()
+    elif choice == "3":
+        view_cart()
+    elif choice == "4":
+        checkout()
+    else:
+        print("Invalid option. Please try again.")
